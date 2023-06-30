@@ -2,12 +2,37 @@
 
 <div id="app">
   <input type="text" v-on:input="alterarTitulo" />
-  <p>{{ titulo }}</p>
+  <p v-once>{{ titulo }}</p>
   <p>Acessar a partir da instância: {{ acessarTituloApartirDaInstancia() }}</p>
-  <br>
+  <br />
   <p>Referenciar um link (uso de interpolação)</p>
-  <p>A diretiva v-bind ajuda o DOM a identificar as propriedades da Vue Instancie</p>
+  <p>
+    A diretiva v-bind ajuda o DOM a identificar as propriedades da Vue Instancie
+  </p>
   <a v-bind:href="link">Google</a>
+
+  <hr />
+
+  <span>
+    Diretiva é uma propriedade personalizadas que encapsula uma rotina que pode
+    ser interpretadas e executadas pelo DOM.
+  </span>
+
+  <hr />
+  <span>
+    Diretiva v-once permite que a propriedade seja interpolada somente uma vez.
+    <br />
+    Muito útil quando não se deseja atualizar a propriedade pela Vue Instancie.
+  </span>
+
+  <br />
+  <br />
+  <hr />
+  <p>
+    use a diretiva v-html para interpolar html na DOM essa diretiva implementa
+    prevenção a ataques do tipo XSS
+  </p>
+  <p v-html="divHtml"></p>
 </div>
 
 <script>
@@ -15,14 +40,16 @@
     el: "#app",
     data: {
       titulo: "Usando VueJS 2!",
-      link: 'http://google.com.br'
+      link: "http://google.com.br",
+      divHtml: "<div style='border: solid 2px green; width: 250px; height: 250px'>QUADRADO</div>",
     },
-    methods: {      
+    methods: {
       alterarTitulo(event) {
         this.titulo = event.target.value;
       },
 
       acessarTituloApartirDaInstancia: function () {
+        this.titulo = "Atualizando...";
         return this.titulo;
       },
     },
