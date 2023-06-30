@@ -3,6 +3,11 @@
 <div id="app">
   <input type="text" v-on:input="alterarTitulo" />
   <p>{{ titulo }}</p>
+  <p>Acessar a partir da instância: {{ acessarTituloApartirDaInstancia() }}</p>
+  <br>
+  <p>Referenciar um link (uso de interpolação)</p>
+  <p>A diretiva v-bind ajuda o DOM a identificar as propriedades da Vue Instancie</p>
+  <a v-bind:href="link">Google</a>
 </div>
 
 <script>
@@ -10,10 +15,15 @@
     el: "#app",
     data: {
       titulo: "Usando VueJS 2!",
+      link: 'http://google.com.br'
     },
-    methods: {
+    methods: {      
       alterarTitulo(event) {
         this.titulo = event.target.value;
+      },
+
+      acessarTituloApartirDaInstancia: function () {
+        return this.titulo;
       },
     },
   });
