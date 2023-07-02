@@ -1,0 +1,38 @@
+<script src="https://unpkg.com/vue@2"></script>
+
+<div id="app">
+  <p v-once>{{ titulo }}</p>
+  <h1>{{ count1 }}</h1>
+  <br>
+  <button v-on:click="somar">Somar 1</button>
+
+  <hr>
+
+  <p>"Passando o value para somar via parâmetro"</p>
+  <h1>{{ count2 }}</h1>
+  <br>
+  <button v-on:click="somarComParametro(10, $event)">Somar 1</button>
+
+  <hr>
+
+</div>
+
+<script>
+  new Vue({
+    el: "#app",
+    data: {
+      titulo: "Trabalhando com eventos no VueJS 2!",
+      count1: 0,
+      count2: 0
+    },
+    methods: {
+      somar() {
+        this.count1++
+      },  
+      somarComParametro(value, event) {
+        console.info(event)
+        this.count2 += value
+      }
+    }
+  });
+</script>
