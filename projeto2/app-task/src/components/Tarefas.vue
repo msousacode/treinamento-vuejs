@@ -1,12 +1,26 @@
 <template>
-  <!--Componente Pai de todas as tarefas-->
+  <!--Componente Pai de todas as tarefas.-->
   <div id="tarefas">
-    {{ teste }}
-    <!--Recebe o descritivo da tarefa-->
-    <input type="text" />
+    <ul>
+      <li>
+        {{ nomeApp }}
+      </li>
+      <li>
+        {{ versao }}
+      </li>
+      <li>
+        {{ desenvolvedor }}
+      </li>
+    </ul>
 
-    <!--Cria a tarfefa adicionando a mesma dentro de um array itens onde ficam armazenadas todas as tarefas-->
-    <button type="button" @click="adicionarTarefa('Teste')">Nova tarefa</button>
+    <!--Total das tarefas-->
+    <h5>Total de tarefas: {{ tarefas.length }}</h5>
+
+    <!--Recebe o descritivo da tarefa.-->
+    <input type="text" v-model="descritivoTarefa" />    
+
+    <!--Cria a tarfefa adicionando a mesma dentro de um array itens onde ficam armazenadas todas as tarefas.-->
+    <button type="button" @click="adicionarTarefa()">Nova tarefa</button>
 
     <br />
     <br />
@@ -14,7 +28,7 @@
     <ul>
       <!-- Aqui estou realizando a interação do array de objetos
         Sendo que esses itens representarão as tarefas.-->
-      <li v-for="(item, index) in itens()" :key="item.message">
+      <li v-for="(item, index) in tarefas" :key="item.message">
         <div id="tarefa">{{ index + 1 }} - {{ item.message }}</div>
       </li>
     </ul>
@@ -24,18 +38,23 @@
 <script>
 export default {
   name: "App",
-  data: function () {
+  data: () => {
+    //Todas essas propriedades estão na DOM.
+    //A declaração deleas na propriedade data torna possível realizar o binding de dados.
     return {
-      teste: "Palmeiras",
+      nomeApp: "Gerenciador de Tarefas",
+      versao: "1.0.0",
+      desenvolvedor: "Michael Sousa",
+      descritivoTarefa: "",
+      tarefas: [],
     };
   },
   methods: {
-    //A função itens retorna o array de objetos que representa as minhas tarefas.
-    itens() {
-      return [{ message: "Algo" }, { message: "Outro" }];
-    },
-    adicionarTarefa(value) {
-      console.info(value);
+    //Metódo responsável por adicionar uma tarefa.
+    adicionarTarefa() {
+      this.tarefas.unshift({
+        message: this.descritivoTarefa,
+      });
     },
   },
 };
