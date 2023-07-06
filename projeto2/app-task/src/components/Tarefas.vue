@@ -1,26 +1,16 @@
 <template>
   <!--Componente Pai de todas as tarefas.-->
-  <div>
-    <ul>
-      <li>
-        {{ nomeApp }}
-      </li>
-      <li>
-        {{ versao }}
-      </li>
-      <li>
-        {{ desenvolvedor }}
-      </li>
-    </ul>
-
+  <div style="width: 100%">
     <!--Total das tarefas-->
     <h5>Total de tarefas: {{ tarefas.length }}</h5>
 
     <!--Recebe o descritivo da tarefa.-->
-    <input type="text" v-model="descritivoTarefa" />
+    <input class="css-input" type="text" v-model="descritivoTarefa" />
 
     <!--Cria a tarfefa adicionando a mesma dentro de um array itens onde ficam armazenadas todas as tarefas.-->
-    <button type="button" @click="adicionarTarefa()">Nova tarefa</button>
+    <button class="btn-default" type="button" @click="adicionarTarefa()">
+      Adicionar Tarefa
+    </button>
 
     <br />
     <br />
@@ -30,7 +20,7 @@
         Sendo que esses itens representarão as tarefas.-->
       <li v-for="item in tarefas" :key="item.message">
         <!--Componente filho recebe dados do componente Pai-->
-        <tarefa-item v-bind:tarefa-item="item" />            
+        <tarefa-item v-bind:tarefa-item="item" />
       </li>
     </ul>
   </div>
@@ -46,9 +36,6 @@ export default {
     //Todas essas propriedades estão na DOM.
     //A declaração deleas na propriedade data torna possível realizar o binding de dados.
     return {
-      nomeApp: "Gerenciador de Tarefas",
-      versao: "1.0.0",
-      desenvolvedor: "Michael Sousa",
       descritivoTarefa: "",
       tarefas: [],
     };
