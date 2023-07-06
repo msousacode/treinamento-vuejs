@@ -18,7 +18,7 @@
     <ul>
       <!-- Aqui estou realizando a interação do array de objetos
         Sendo que esses itens representarão as tarefas.-->
-      <li v-for="item in tarefas" :key="item.message">
+      <li v-for="item in tarefas" v-bind:key="item.unique">
         <!--Componente filho recebe dados do componente Pai-->
         <tarefa-item v-bind:tarefa-item="item" />
       </li>
@@ -44,7 +44,9 @@ export default {
     //Metódo responsável por adicionar uma tarefa.
     adicionarTarefa() {
       this.tarefas.unshift({
+        unique: Date.now(),
         message: this.descritivoTarefa,
+        isPendente: true,
       });
     },
   },
