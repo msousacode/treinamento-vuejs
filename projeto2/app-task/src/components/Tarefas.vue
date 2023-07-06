@@ -1,6 +1,6 @@
 <template>
   <!--Componente Pai de todas as tarefas.-->
-  <div id="tarefas">
+  <div>
     <ul>
       <li>
         {{ nomeApp }}
@@ -17,7 +17,7 @@
     <h5>Total de tarefas: {{ tarefas.length }}</h5>
 
     <!--Recebe o descritivo da tarefa.-->
-    <input type="text" v-model="descritivoTarefa" />    
+    <input type="text" v-model="descritivoTarefa" />
 
     <!--Cria a tarfefa adicionando a mesma dentro de um array itens onde ficam armazenadas todas as tarefas.-->
     <button type="button" @click="adicionarTarefa()">Nova tarefa</button>
@@ -28,14 +28,18 @@
     <ul>
       <!-- Aqui estou realizando a interação do array de objetos
         Sendo que esses itens representarão as tarefas.-->
-      <li v-for="(item, index) in tarefas" :key="item.message">
-        <div id="tarefa">{{ index + 1 }} - {{ item.message }}</div>
+      <li v-for="item in tarefas" :key="item.message">
+        <!--Componente filho recebe dados do componente Pai-->
+        <tarefa-item v-bind:tarefa-item="item" />            
       </li>
     </ul>
   </div>
 </template>
 
 <script>
+//Registrar localmente o TarefaItem.
+import TarefaItem from "./TarefaItem.vue";
+
 export default {
   name: "App",
   data: () => {
@@ -57,13 +61,11 @@ export default {
       });
     },
   },
+  //Componentes filhos registrados.
+  components: {
+    "tarefa-item": TarefaItem,
+  },
 };
 </script>
 
-<style scoped>
-#tarefa {
-  padding: 10px;
-  margin: 10px;
-  border: solid 1px green;
-}
-</style>
+<style scoped></style>
