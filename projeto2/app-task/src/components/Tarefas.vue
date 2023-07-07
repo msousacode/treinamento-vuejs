@@ -1,29 +1,37 @@
 <template>
   <!--Componente Pai de todas as tarefas.-->
-  <div style="width: 100%">
-    <!--Total das tarefas-->
-    <h5>Total de tarefas: {{ tarefas.length }}</h5>
 
-    <!--Recebe o descritivo da tarefa.-->
-    <input class="css-input" type="text" v-model="descritivoTarefa" />
+  <b-container class="bv-example-row">
+    <div>
+      <!--Total das tarefas-->
+      <h5>Total de tarefas: {{ tarefas.length }}</h5>
 
-    <!--Cria a tarfefa adicionando a mesma dentro de um array itens onde ficam armazenadas todas as tarefas.-->
-    <button class="btn-default" type="button" @click="adicionarTarefa()">
-      Adicionar Tarefa
-    </button>
+      <b-row cols="1" cols-sm="1" cols-md="2" cols-lg="2">
+        <b-col>
+          <!--Recebe o descritivo da tarefa.-->
+          <b-form-input type="text" v-model="descritivoTarefa" />
+        </b-col>
 
-    <br />
-    <br />
+        <b-col>
+          <!--Cria a tarfefa adicionando a mesma dentro de um array itens onde ficam armazenadas todas as tarefas.-->
+          <b-button variant="outline-primary" @click="adicionarTarefa()">
+            Adicionar Tarefa
+          </b-button>
+        </b-col>
 
-    <ul>
-      <!-- Aqui estou realizando a interação do array de objetos
-        Sendo que esses itens representarão as tarefas.-->
-      <li v-for="item in tarefas" v-bind:key="item.unique">
-        <!--Componente filho recebe dados do componente Pai-->
-        <tarefa-item v-bind:tarefa-item="item" />
-      </li>
-    </ul>
-  </div>
+        <ul>
+          <!-- Aqui estou realizando a interação do array de objetos
+          Sendo que esses itens representarão as tarefas.-->
+          <li v-for="item in tarefas" v-bind:key="item.unique">
+            <b-col>
+              <!--Componente filho recebe dados do componente Pai-->
+              <tarefa-item v-bind:tarefa-item="item" />
+            </b-col>
+          </li>
+        </ul>
+      </b-row>
+    </div>
+  </b-container>
 </template>
 
 <script>

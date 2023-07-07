@@ -1,16 +1,6 @@
 <template>
   <div id="app">
-    <ul>
-      <li>
-        {{ nomeApp }}
-      </li>
-      <li>
-        {{ versao }}
-      </li>
-      <li>
-        {{ desenvolvedor }}
-      </li>
-    </ul>
+    <h6>{{ nomeApp }} - version: {{ versao }}</h6>
 
     <!--Tarefas é o componente central que gera e controla todas as tarefas-->
     <tarefas />
@@ -59,47 +49,5 @@ body {
 
 ul {
   list-style-type: none;
-}
-
-.btn-default {
-  margin-left: 10px;
-  margin-right: 10px;
-  font-size: 15px;
-  font-family: Arial;
-  width: 140px;
-  height: 45px;
-  border-width: 1px;
-  color: #333333;
-  border-color: #ffaa22;
-  font-weight: bold;
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
-  box-shadow: 0px 1px 0px 0px #fff6af;
-  text-shadow: 0px 1px 0px #ffee66;
-  background: linear-gradient(#ffec64, #ffab23);
-}
-
-.btn-default:hover {
-  background: linear-gradient(#ffab23, #ffec64);
-}
-
-.css-input {
-  height: 30px;
-  width: 50%;
-  padding: 5px;
-  font-size: 16px;
-  border-width: 1px;
-  border-color: #cccccc;
-  background-color: #ffffff;
-  color: #000000;
-  border-style: solid;
-  border-radius: 0px;
-  box-shadow: 0px 0px 5px rgba(66, 66, 66, 0.75);
-  text-shadow: 0px 0px 5px rgba(66, 66, 66, 0.75);
-}
-.css-input:focus {
-  outline: none;
 }
 </style>

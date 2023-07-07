@@ -1,19 +1,24 @@
 <template>
-  <div
-    class="tarefa"
-    v-bind:class="
-      tarefaItem.isPendente ? 'tarefa-pendente' : 'tarefa-finalizada'
-    "
-    @click="finalizarTarefa(true)"
-  >
-    <span>
-      {{ tarefaItem.message }}
-    </span>
-  </div>
+  <b-card-group deck @click="finalizarTarefa(true)">
+    <b-card style="margin-top: 10px;" bg-variant="light" v-bind:header="'Pendente - Criado em: ' + dataCriacao" class="text-center">
+      <b-card-text>{{ tarefaItem.message }}</b-card-text>
+      <b-button variant="success" @click="adicionarTarefa()">
+            Finalizada
+          </b-button>
+          <b-button variant="danger" @click="adicionarTarefa()">
+            Cancelada
+          </b-button>
+    </b-card>
+  </b-card-group>
 </template>
 
 <script>
 export default {
+  data: () => {
+    return {
+      dataCriacao: new Date().toLocaleDateString("pt-BR"),
+    };
+  },
   methods: {
     finalizarTarefa: (value) => {
       //Filho emite um evento para o componente Pai informando que a tarefa foi finalizada.
@@ -27,41 +32,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.tarefa-finalizada {
-  -webkit-box-shadow: 0px 0px 50px 3px #f2e8f3;
-  -moz-box-shadow: 0px 0px 50px 3px #f2e8f3;
-  box-shadow: 0px 0px 50px 3px #f2e8f3;
-
-  border-radius: 10px;
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
-
-  height: 50px;
-  margin-bottom: 10px;
-  background-color: rgb(16, 83, 16);
-
-  cursor: grab;
-}
-
-.tarefa-pendente {
-  -webkit-box-shadow: 0px 0px 50px 3px #f2e8f3;
-  -moz-box-shadow: 0px 0px 50px 3px #f2e8f3;
-  box-shadow: 0px 0px 50px 3px #f2e8f3;
-
-  border-radius: 10px;
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
-
-  height: 50px;
-  margin-bottom: 10px;
-  background-color: rgb(189, 18, 18);
-
-  cursor: grab;
-}
-
-span {
-  padding: 30px;
-  color: white;
-}
-</style>
+<style scoped></style>
