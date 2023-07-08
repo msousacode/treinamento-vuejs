@@ -61,8 +61,19 @@ export default {
       });
     },
     atualizarTarefa(payload) {
-      console.info(payload);
-      //atualizar elementos do array com as novas informações
+      if (payload.tipo === "finalizar") {
+        //Atualiza para false se a tarefa foi finalizada.
+        let tarefa = this.tarefas.find((obj) => obj.unique === payload.unique);
+        tarefa.isPendente = false;
+      }
+
+      if (payload.tipo == "cancelar") {
+        //Remove um item da lista se a tarefa foi cancelada.
+        const index = this.tarefas.findIndex(
+          (obj) => obj.unique === payload.unique
+        );
+        this.tarefas.splice(index, 1);
+      }
     },
   },
   //Componentes filhos registrados.
