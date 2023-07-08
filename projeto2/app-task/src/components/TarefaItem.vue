@@ -2,7 +2,7 @@
   <b-card-group deck>
     <b-card
       style="margin-top: 10px"
-      bg-variant="light"
+      v-bind:bg-variant="getStatusStyle(tarefaItem.isPendente)"
       v-bind:header="'Pendente - Criado em: ' + dataCriacao"
       class="text-center"
     >
@@ -11,13 +11,13 @@
         variant="success"
         @click="atualizarTarefa(tarefaItem.unique, 'finalizar')"
       >
-        Finalizada
+        Finalizar
       </b-button>
       <b-button
         variant="danger"
         @click="atualizarTarefa(tarefaItem.unique, 'cancelar')"
       >
-        Cancelada
+        Cancelar
       </b-button>
     </b-card>
   </b-card-group>
@@ -28,7 +28,7 @@ export default {
   name: "componente-tarefa-item",
   data: () => {
     return {
-      dataCriacao: new Date().toLocaleDateString("pt-BR"),
+      dataCriacao: new Date().toLocaleDateString("pt-BR")      
     };
   },
   methods: {
@@ -39,7 +39,10 @@ export default {
         unique: unique,
         tipo: tipo,
       });
-    },
+    },    
+    getStatusStyle(isPendente) {      
+      return isPendente ? "danger" : "success"
+    }
   },
   //Declaração dos dados que estou esperando receber do componente Pai.
   props: {

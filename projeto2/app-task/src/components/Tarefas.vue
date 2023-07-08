@@ -62,9 +62,14 @@ export default {
     },
     atualizarTarefa(payload) {
       if (payload.tipo === "finalizar") {
-        //Atualiza para false se a tarefa foi finalizada.
-        let tarefa = this.tarefas.find((obj) => obj.unique === payload.unique);
-        tarefa.isPendente = false;
+        //Atualiza isPendente para false se a tarefa foi finalizada.
+        //Para isso realiza um map em tarefas e ao encontrar o objeto por unique 
+        //altera a flag isPendente para false  
+        this.tarefas.map((obj) => {
+          if (obj.unique === payload.unique) {
+            obj.isPendente = false;
+          }
+        });
       }
 
       if (payload.tipo == "cancelar") {
