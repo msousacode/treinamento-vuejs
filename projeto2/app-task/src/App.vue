@@ -11,9 +11,9 @@
 import Tarefas from "./components/Tarefas.vue";
 
 export default {
+  name: "App",
   data: () => {
     return {
-      name: "App",
       nomeApp: "Gerenciador de Tarefas",
       versao: "1.0.0",
       desenvolvedor: "Michael Sousa",

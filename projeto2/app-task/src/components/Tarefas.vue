@@ -1,6 +1,5 @@
 <template>
   <!--Componente Pai de todas as tarefas.-->
-
   <b-container class="bv-example-row">
     <div>
       <!--Total das tarefas-->
@@ -14,7 +13,7 @@
 
         <b-col>
           <!--Cria a tarfefa adicionando a mesma dentro de um array itens onde ficam armazenadas todas as tarefas.-->
-          <b-button variant="outline-primary" @click="adicionarTarefa()">
+          <b-button variant="outline-primary" @click="adicionarTarefa">
             Adicionar Tarefa
           </b-button>
         </b-col>
@@ -24,8 +23,11 @@
           Sendo que esses itens representarão as tarefas.-->
           <li v-for="item in tarefas" v-bind:key="item.unique">
             <b-col>
-              <!--Componente filho recebe dados do componente Pai-->
-              <tarefa-item v-bind:tarefa-item="item" />
+              <!--Componente Filho recebe dados do componente Pai-->
+              <tarefa-item
+                v-bind:tarefa-item="item"
+                @atualizarTarefa="atualizarTarefa"
+              />
             </b-col>
           </li>
         </ul>
@@ -39,13 +41,14 @@
 import TarefaItem from "./TarefaItem.vue";
 
 export default {
-  name: "App",
+  name: "componente-tarefas",
   data: () => {
     //Todas essas propriedades estão na DOM.
     //A declaração deleas na propriedade data torna possível realizar o binding de dados.
     return {
       descritivoTarefa: "",
       tarefas: [],
+      unique: null, //Unique representa um ID dos objetos do array tarefas.
     };
   },
   methods: {
@@ -56,6 +59,10 @@ export default {
         message: this.descritivoTarefa,
         isPendente: true,
       });
+    },
+    atualizarTarefa(payload) {
+      console.info(payload);
+      //atualizar elementos do array com as novas informações
     },
   },
   //Componentes filhos registrados.
