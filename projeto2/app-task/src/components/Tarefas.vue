@@ -1,39 +1,31 @@
 <template>
   <!--Componente Pai de todas as tarefas.-->
-  <b-container class="bv-example-row">
-    <div>
+
+  <div>
+    <b-container class="bv-example-row">
       <!--Total das tarefas-->
-      <h5>Total de tarefas: {{ tarefas.length }}</h5>
+      <h6>Pendentes: {{ tarefasPendentes }}</h6>
+      <h6>Finalizadas: {{ tarefasFinalizadas }}</h6>
 
-      <b-row cols="1" cols-sm="1" cols-md="2" cols-lg="2">
-        <b-col>
-          <!--Recebe o descritivo da tarefa.-->
-          <b-form-input type="text" v-model="descritivoTarefa" />
-        </b-col>
+      <!--Recebe o descritivo da tarefa.-->
+      <b-form-input type="text" v-model="descritivoTarefa" />
 
-        <b-col>
-          <!--Cria a tarfefa adicionando a mesma dentro de um array itens onde ficam armazenadas todas as tarefas.-->
-          <b-button variant="outline-primary" @click="adicionarTarefa">
-            Adicionar Tarefa
-          </b-button>
-        </b-col>
+      <!--Cria a tarfefa adicionando a mesma dentro de um array itens onde ficam armazenadas todas as tarefas.-->
+      <b-button id="btn" variant="primary" @click="adicionarTarefa">
+        Adicionar Tarefa
+      </b-button>
 
-        <ul>
-          <!-- Aqui estou realizando a interação do array de objetos
+      <!-- Aqui estou realizando a interação do array de objetos
           Sendo que esses itens representarão as tarefas.-->
-          <li v-for="item in tarefas" v-bind:key="item.unique">
-            <b-col>
-              <!--Componente Filho recebe dados do componente Pai-->
-              <tarefa-item
-                v-bind:tarefa-item="item"
-                @atualizarTarefa="atualizarTarefa"
-              />
-            </b-col>
-          </li>
-        </ul>
-      </b-row>
-    </div>
-  </b-container>
+      <div v-for="item in tarefas" v-bind:key="item.unique">
+        <!--Componente Filho recebe dados do componente Pai-->
+        <tarefa-item
+          v-bind:tarefa-item="item"
+          @atualizarTarefa="atualizarTarefa"
+        />
+      </div>
+    </b-container>
+  </div>
 </template>
 
 <script>
@@ -49,6 +41,8 @@ export default {
       descritivoTarefa: "",
       tarefas: [],
       unique: null, //Unique representa um ID dos objetos do array tarefas.
+      tarefasPendentes: 0,
+      tarefasFinalizadas: 0,
     };
   },
   methods: {
@@ -58,16 +52,20 @@ export default {
         unique: Date.now(),
         message: this.descritivoTarefa,
         isPendente: true,
+        dataCriacao: new Date().toLocaleDateString("pt-BR"),
       });
+      this.tarefasPendentes++;
     },
     atualizarTarefa(payload) {
       if (payload.tipo === "finalizar") {
         //Atualiza isPendente para false se a tarefa foi finalizada.
-        //Para isso realiza um map em tarefas e ao encontrar o objeto por unique 
-        //altera a flag isPendente para false  
+        //Para isso realiza um map em tarefas e ao encontrar o objeto por unique
+        //altera a flag isPendente para false
         this.tarefas.map((obj) => {
           if (obj.unique === payload.unique) {
             obj.isPendente = false;
+            this.tarefasPendentes--;
+            this.tarefasFinalizadas++;
           }
         });
       }
@@ -78,6 +76,7 @@ export default {
           (obj) => obj.unique === payload.unique
         );
         this.tarefas.splice(index, 1);
+        this.tarefasPendentes--;
       }
     },
   },
@@ -88,4 +87,18 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+#btn {
+  width: 100%;
+  margin-top: 10px;
+}
+
+li {
+  margin-top: 10px;
+  width: 100%;
+}
+
+h6 {
+  color: #fff;
+}
+</style>
